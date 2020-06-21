@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+    <a class="justify-content-end" href="{% url 'register' %}">Register</a>
+    {% if user.is_authenticated %}
+        <a class="justify-content-end" href="#">{{ request.user }}</a>
+        <a class="justify-content-end" href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <a class="justify-content-end" href="{% url 'login' %}">Login</a>
+    {% endif  %}
+    <a href="create-ad/" class="btn btn-primary justify-contend-end">Post ad</a>
+{% endblock navigation %}
+
+{% block content %}
+{% for ad in ads %}
+    <div class='card'>
+        <div class="card-body">
+            <img class="img-thumbnail w-25 h-25" src=" {{ ad.image.url }} " />
+            <h4 class="card-title">{{ ad.title }}</h4>
+            <h4> {{ ad.price }} $</h4>
+            <p class="card-text">{{ ad.description }}</p>
+            {{ ad.date_posted }} by {{ ad.author }}
+            <a href="#" class="btn btn-primary float-right stretched-link">Read more</a>
+
+        </div>
+
+    </div>
+    {% endfor %}
+{% endblock content %}
