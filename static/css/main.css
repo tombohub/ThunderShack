@@ -1,0 +1,90 @@
+/****** General style *****/
+nav {
+  border: 2px solid black;
+  padding: 0 1em 0 1em;
+}
+
+ul {
+  border: 2px dashed black;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  border: 1px dashed black;
+}
+
+section {
+  border: 2px solid blue;
+}
+
+a  {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+/******** Navigation ******/
+.navigation {
+  display: flex;
+}
+
+.navigation-right {
+  margin-left: auto;
+  display: flex;
+}
+
+/****** Main content - Ads *********/
+
+.ad {
+  display: flex;
+  width: 80%;
+  margin: 2em auto;
+}
+
+.ad-image {
+  width: 12em;
+  height: 12em;
+  object-fit: cover;
+  border-radius: 0.2em;
+}
+
+.ad-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  border: 2px solid navy;
+}
+
+.ad-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border: 1px solid brown;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
+
+.ad-title {
+  border: 1px solid red;
+  padding: 0 1em;
+}
+
+.ad-price {
+  border: 1px solid red;
+  padding: 0 1em;
+}
+
+.ad-description {
+  border: 1px solid green;
+  flex-grow: 2;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.ad-buttons {
+  border: 1px solid purple;
+  align-self: flex-end;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
