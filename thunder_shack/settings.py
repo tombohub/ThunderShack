@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ads.apps.AdsConfig',
+    'private_messages',
     'users',
-    'messages',
     'crispy_forms',
+    'django_rename_app',
 ]
 
 MIDDLEWARE = [

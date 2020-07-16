@@ -1,29 +1,72 @@
 {% extends 'base.html' %}
 
+<!-- Navigation -->
 {% block navigation %}
-    <a class="justify-content-end" href="{% url 'register' %}">Register</a>
-    {% if user.is_authenticated %}
-        <a class="justify-content-end" href="#">{{ request.user }}</a>
-        <a class="justify-content-end" href="{% url 'logout' %}">Logout</a>
-    {% else %}
-        <a class="justify-content-end" href="{% url 'login' %}">Login</a>
-    {% endif  %}
-    <a href="create-ad/" class="btn btn-primary justify-contend-end">Post ad</a>
+    <nav class="navigation">
+
+        <!-- Left side -->
+        <ul class="">
+            <li>
+                <a href="{% url 'ads-home' %}">
+                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
+                    </svg>
+                    Thunder Shack
+                </a>
+            </li>
+        </ul>
+
+            <!-- Right side -->
+            <ul class="navigation-right">
+                <li>
+                    <a href="#">{{ user.username }}</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </li>
+
+                {% else %} 
+                <li>
+                    <a href="{% url 'register' %}">Register</a>
+                    <a href="{% url 'login' %}">Login</a>
+                </li>
+
+                {% endif  %}
+                <li>
+                    <a href="create-ad/">Post ad</a>
+                </li>
+            </ul>
+
+    </nav>
+
 {% endblock navigation %}
 
+
+<!-- Content -->
 {% block content %}
-{% for ad in ads %}
-    <div class='card'>
-        <div class="card-body">
-            <img class="img-thumbnail w-25 h-25" src=" {{ ad.image.url }} " />
-            <h4 class="card-title">{{ ad.title }}</h4>
-            <h4> {{ ad.price }} $</h4>
-            <p class="card-text">{{ ad.description }}</p>
-            {{ ad.date_posted }} by {{ ad.author }}
-            <a href="#" class="btn btn-primary float-right stretched-link">Read more</a>
-
-        </div>
-
-    </div>
+<main>
+    {% for ad in ads %}
+       <section class="ad">
+            <img class="ad-image" src=" {{ ad.image.url }} " />
+            <div class="ad-body">
+                <div class="ad-header">
+                    
+                    <strong class="ad-title">{{ ad.title }}</strong><strong class="ad-price">{{ ad.price }}$</strong>
+                </div>
+                <div class="ad-description">
+                   <p>
+                       {{ ad.description }}
+                   </p>
+                </div>
+                <div class="ad-buttons">
+                    <a href="#">Read more</a>
+                    <a href="#">Send Message</a>
+                </div>
+            </div>
+       </section>
     {% endfor %}
+</main>
 {% endblock content %}
+
