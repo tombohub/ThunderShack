@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users import views as users_views
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ads.urls')),
     path('users/', include('users.urls')),
+    path('messages/', include('private_messages.urls')),
 ]
+

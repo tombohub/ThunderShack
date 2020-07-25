@@ -5,9 +5,9 @@
     <nav class="navigation">
 
         <!-- Left side -->
-        <ul class="">
+        <ul class=''>
             <li>
-                <a href="{% url 'ads-home' %}">
+                <a class='' href="{% url 'ads-home' %}">
                     <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
                     </svg>
@@ -15,30 +15,31 @@
                 </a>
             </li>
         </ul>
-
-            <!-- Right side -->
+        
+        <!-- Right side -->
             <ul class="navigation-right">
-                <li>
-                    <a href="#">{{ user.username }}</a>
-                </li>
-
+        
                 {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'logout' %}">Logout</a>
+                <li class=''>
+                    <a class='' href="{% url 'profile' %}">{{ user.username }}</a>
+                </li>
+                <li class=''>
+                    <a class='' href="{% url 'user-ads' %}">My ads</a>
+                </li>
+                <li class="">
+                    <a class='' href="{% url 'logout' %}">Logout</a>
                 </li>
 
                 {% else %} 
-                <li>
-                    <a href="{% url 'register' %}">Register</a>
-                    <a href="{% url 'login' %}">Login</a>
+                <li class=''>
+                    <a class='' href="{% url 'login' %}">Login</a>
                 </li>
 
                 {% endif  %}
-                <li>
-                    <a href="create-ad/">Post ad</a>
+                <li class="">
+                    <a class="" href="create-ad/">Post ad</a>
                 </li>
-            </ul>
-
+            </ul>    
     </nav>
 
 {% endblock navigation %}
@@ -46,25 +47,32 @@
 
 <!-- Content -->
 {% block content %}
-<main>
+<main class=''>
     {% for ad in ads %}
        <section class="ad">
             <img class="ad-image" src=" {{ ad.image.url }} " />
             <div class="ad-body">
+
                 <div class="ad-header">
-                    
                     <strong class="ad-title">{{ ad.title }}</strong><strong class="ad-price">{{ ad.price }}$</strong>
                 </div>
+
                 <div class="ad-description">
                    <p>
                        {{ ad.description }}
                    </p>
                 </div>
-                <div class="ad-buttons">
-                    <a href="#">Read more</a>
-                    <a href="#">Send Message</a>
+
+                <div class="ad-footer">
+                    <div class="ad-details">
+                        <small>{{ ad.author }}, {{ ad.date_posted }} </small>
+                    </div>
+                    <div class="ad-buttons">
+                        <a href="{{ ad.get_absolute_url }} ">Read more</a>
+                    </div>
                 </div>
-            </div>
+
+            </div>  
        </section>
     {% endfor %}
 </main>

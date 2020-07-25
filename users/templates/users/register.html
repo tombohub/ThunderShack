@@ -5,7 +5,7 @@
     <form action="" method="POST" novalidate>
         {% csrf_token %}
         <table>
-            {{form | crispy}}
+            {{ form | crispy }}
         </table>
 
         <input type="submit" class="btn btn-primary"/>

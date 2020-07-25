@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+<!-- Content -->
+{% block content %}
+<main>
+       <section class="ad">
+            <img class="ad-image" src=" {{ ad.image.url }} " />
+            <div class="ad-body">
+
+                <div class="ad-header">
+                    <strong class="ad-title">{{ ad.title }}</strong><strong class="ad-price">{{ ad.price }}$</strong>
+                </div>
+
+                <div class="ad-description">
+                   <p>
+                       {{ ad.description }} 
+                   </p>
+                </div>
+
+                <div class="ad-footer">
+                    <div class="ad-details">
+                        <small>{{ ad.author }}, {{ ad.date_posted }} </small>
+                    </div>
+                    <div class="ad-buttons">
+                        <a href="{% url 'messages-send'  %}?ad-title={{ad.title | urlencode}}&to={{ ad.author | urlencode }}&ad={{ ad.id | urlencode }}">Send Message</a>
+                    </div>
+                </div>
+
+            </div>
+       </section>
+</main>
+{% endblock content %}
