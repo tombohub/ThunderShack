@@ -46,3 +46,6 @@ def user_logout(request):
     logout(request)
     messages.success(request, f'Thank you {username}, you are now logged out. Have a nice day!')
     return redirect('/')
+
+def profile(request):
+    return render(request, 'users/profile.html')

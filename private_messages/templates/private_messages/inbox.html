@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for message in private_messages %}
+     <p> sender - {{ message.sender }} <br>
+    receiver - {{ message.receiver }} <br>
+    body - {{ message.body }} <br>
+    date - {{ message.date }} <br>
+{% endfor %}
+{% endblock content %}

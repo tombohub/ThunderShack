@@ -82,9 +82,17 @@ a  {
   padding-right: 1em;
 }
 
-.ad-buttons {
-  border: 1px solid purple;
-  align-self: flex-end;
+.ad-footer {
+  display: flex;
+  justify-content: space-between;
   padding-top: 0.2em;
   padding-bottom: 0.2em;
+}
+
+.ad-details {
+  margin-left: 1em;
+}
+
+.ad-buttons {
+  border: 1px solid purple;
 }
