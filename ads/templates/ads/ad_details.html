@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+<!-- Content -->
+{% block content %}
+<main>
+    <section class='ad-details'>
+        <h1 class="ad-details-title">
+            {{ ad.title }}
+        </h1>
+
+        <div class='ad-details-body'>
+            <div class="ad-details-body-image">
+                <a href="{{ ad.image.url }}">
+                    <img src="{{ ad.image.url }}" alt="">
+                </a>
+            </div>
+            <article class='ad-details-body-text-description'>
+                {{ad.description}}
+            </article>
+            <div class='ad-details-body-text-buttons'>
+                <a href="{% url 'messages-send' %}"><button>Send Message</button></a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}

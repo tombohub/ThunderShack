@@ -1,79 +1,37 @@
 {% extends 'base.html' %}
+{% load static %}
 
-<!-- Navigation -->
-{% block navigation %}
-    <nav class="navigation">
 
-        <!-- Left side -->
-        <ul class=''>
-            <li>
-                <a class='' href="{% url 'ads-home' %}">
-                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
-                    </svg>
-                    Thunder Shack
-                </a>
-            </li>
-        </ul>
-        
-        <!-- Right side -->
-            <ul class="navigation-right">
-        
-                {% if user.is_authenticated %}
-                <li class=''>
-                    <a class='' href="{% url 'profile' %}">{{ user.username }}</a>
-                </li>
-                <li class=''>
-                    <a class='' href="{% url 'user-ads' %}">My ads</a>
-                </li>
-                <li class="">
-                    <a class='' href="{% url 'logout' %}">Logout</a>
-                </li>
-
-                {% else %} 
-                <li class=''>
-                    <a class='' href="{% url 'login' %}">Login</a>
-                </li>
-
-                {% endif  %}
-                <li class="">
-                    <a class="" href="create-ad/">Post ad</a>
-                </li>
-            </ul>    
-    </nav>
-
-{% endblock navigation %}
-
+{% block banner %}
+<div class='banner'>
+    <p>Keep It In <br>
+         The Neighbourhood
+</div>
+{% endblock banner %}
 
 <!-- Content -->
 {% block content %}
-<main class=''>
+<main class='container'>
     {% for ad in ads %}
+    <a href="{{ ad.get_absolute_url }} ">
        <section class="ad">
-            <img class="ad-image" src=" {{ ad.image.url }} " />
-            <div class="ad-body">
-
-                <div class="ad-header">
-                    <strong class="ad-title">{{ ad.title }}</strong><strong class="ad-price">{{ ad.price }}$</strong>
+                <div class='ad-image'>
+                    <img class="ad-image" src=" {{ ad.image.url }} " />
                 </div>
+               
+   <div class="ad-body">
 
-                <div class="ad-description">
-                   <p>
-                       {{ ad.description }}
-                   </p>
-                </div>
-
-                <div class="ad-footer">
-                    <div class="ad-details">
-                        <small>{{ ad.author }}, {{ ad.date_posted }} </small>
-                    </div>
-                    <div class="ad-buttons">
-                        <a href="{{ ad.get_absolute_url }} ">Read more</a>
-                    </div>
-                </div>
-
-            </div>  
-       </section>
+       <div class="ad-title">
+           {{ ad.title }}
+        </div>
+        <div class='ad-price'>
+            {{ ad.price }}$
+       </div>
+   </div>
+   
+           
+        </section>
+</a>
     {% endfor %}
 </main>
 {% endblock content %}
