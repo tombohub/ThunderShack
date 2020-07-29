@@ -70,10 +70,10 @@ def edit(request, pk):
         return redirect(f'{settings.LOGIN_URL}?next={request.path}')
 
 #single ad view
-def ad_detail(request, pk, slug):
+def ad_details(request, pk, slug):
     ad = Ad.objects.get(slug=slug, pk=pk)
     context = {'ad':ad}
-    return render(request, 'ads/ad_detail.html', context)
+    return render(request, 'ads/ad_details.html', context)
 
 # list current user ads
 def user_ads(request):

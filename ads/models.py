@@ -26,7 +26,7 @@ class Ad(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('ad-detail', kwargs={'pk':self.pk, 'slug':self.slug})
+        return reverse('ad-details', kwargs={'pk':self.pk, 'slug':self.slug})
     
     def save(self, *args, **kwargs):
         if not self.slug:
