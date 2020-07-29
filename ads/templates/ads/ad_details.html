@@ -3,25 +3,31 @@
 
 <!-- Content -->
 {% block content %}
-<main>
-    <section class='ad-details'>
-        <h1 class="ad-details-title">
-            {{ ad.title }}
-        </h1>
-
-        <div class='ad-details-body'>
-            <div class="ad-details-body-image">
-                <a href="{{ ad.image.url }}">
-                    <img src="{{ ad.image.url }}" alt="">
-                </a>
-            </div>
-            <article class='ad-details-body-text-description'>
-                {{ad.description}}
-            </article>
-            <div class='ad-details-body-text-buttons'>
-                <a href="{% url 'messages-send' %}"><button>Send Message</button></a>
-            </div>
+<main class='container'>
+    <div class="row">
+        <div class="col-md 8">
+            <section class='ad-details'>
+                <h1 class="ad-details-title">
+                    {{ ad.title }}
+                </h1>
+        
+                <div class='ad-details-body'>
+                    <div class="ad-details-body-image">
+                        <a href="{{ ad.image.url }}">
+                            <img class='img-fluid' src="{{ ad.image.url }}" alt="">
+                        </a>
+                    </div>
+                    <article class='ad-details-body-text-description'>
+                        {{ad.description}}
+                    </article>
+                </div>
+            </section>
         </div>
-    </section>
+        <aside class='col-md-4'>
+            <div class='ad-details-body-text-buttons'>
+                <a href="{% url 'messages-send' %}"><button class='btn btn-primary'>Send Message</button></a>
+            </div>
+        </aside>
+    </div>
 </main>
 {% endblock content %}

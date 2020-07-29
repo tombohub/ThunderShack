@@ -1,0 +1,13 @@
+.ad-image {
+    height: 250px;
+    object-fit: cover;
+}
+
+.ad-container {
+    width: 85%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 2.5em;
+   justify-content: center;
+   margin: 0 auto;
+}
