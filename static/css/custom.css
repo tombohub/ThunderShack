@@ -3,6 +3,12 @@
     object-fit: cover;
 }
 
+.ad-image-details {
+    max-width: 100%;
+    height: 450px;
+    object-fit: contain;
+}
+
 .ad-container {
     width: 85%;
     display: grid;

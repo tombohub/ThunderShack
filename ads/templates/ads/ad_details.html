@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load humanize %}
 
 
 <!-- Content -->
@@ -6,26 +8,45 @@
 <main class='container'>
     <div class="row">
         <div class="col-md 8">
-            <section class='ad-details'>
-                <h1 class="ad-details-title">
-                    {{ ad.title }}
-                </h1>
+            <section class='card'>
+                <h4 class="card-header d-flex justify-content-between">
+                    <span>{{ ad.title }}</span><span>{{ad.price}}$</span> 
+                </h4>
         
-                <div class='ad-details-body'>
-                    <div class="ad-details-body-image">
                         <a href="{{ ad.image.url }}">
-                            <img class='img-fluid' src="{{ ad.image.url }}" alt="">
+                            <img class='img-fluid ad-image-details card-img-top border' src="{{ ad.image.url }}" alt="">
                         </a>
-                    </div>
-                    <article class='ad-details-body-text-description'>
-                        {{ad.description}}
-                    </article>
-                </div>
+                        <div class="card-body">
+                            <h6 class='text-muted'>Description</h6>
+                            <article class='card-text'>
+                                {{ad.description}}
+                            </article>
+                            <p class="card-text text-muted text-right"><small>{{ad.date_posted | naturaltime}}</small></p>
+                        </div>
             </section>
         </div>
         <aside class='col-md-4'>
-            <div class='ad-details-body-text-buttons'>
-                <a href="{% url 'messages-send' %}"><button class='btn btn-primary'>Send Message</button></a>
+            <div class="card">
+                <div class="card-header card-title text-center">
+                    Contact {{ad.author}}:
+                </div>
+            {% if conversation %}
+                <div class="card-body">
+                    <p>You already started conversation about this ad with {{ ad.author }}</p>
+                    <a class='btn btn-primary btn-block' href="{{ conversation.get_absolute_url }}">Go to conversation</a>
+                </div>
+            {% else %}
+                <div class="card-body">
+                    <button class='btn btn-primary btn-block' id='message1' onclick="fillText()">Hello neighbour, is this still available?</button>
+                    <form action="{% url 'messages-send' %}?ad={{ad.id}}" method="POST" class="my-3">
+                        <div class="form-group">
+                            {% csrf_token %}
+                                {{form | crispy}}
+                        </div>
+                        <button class='btn btn-primary btn-block'>Send Message</button>
+                    </form>
+                </div>
+            {% endif %}
             </div>
         </aside>
     </div>

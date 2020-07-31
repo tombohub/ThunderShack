@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from .models import Ad
 from django.contrib.auth.models import User
 from .forms import AdCreateForm
+from private_messages.forms import PrivateMessageForm
+from private_messages.models import Conversation
 from django.contrib import messages
 from django.conf import settings
 
@@ -72,7 +74,9 @@ def edit(request, pk):
 #single ad view
 def ad_details(request, pk, slug):
     ad = Ad.objects.get(slug=slug, pk=pk)
-    context = {'ad':ad}
+    conversation = Conversation.get_if_exists(ad=ad, starter=request.user)
+    form = PrivateMessageForm()
+    context = {'ad':ad, 'form':form, 'conversation':conversation}
     return render(request, 'ads/ad_details.html', context)
 
 # list current user ads
@@ -85,9 +89,5 @@ def user_ads(request):
     else:
         messages.info(request, 'Please login first')
         return redirect(f'{settings.LOGIN_URL}?next={request.path}')
-
-
-
-
 
 
