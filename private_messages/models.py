@@ -23,7 +23,6 @@ class Conversation(models.Model):
 
 class PrivateMessage(models.Model):
     sender = models.ForeignKey(User, related_name='sender', on_delete=models.SET_NULL, null=True)
-    receiver = models.ForeignKey(User, related_name='receiver', on_delete=models.SET_NULL, null=True)
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     conversation =  models.ForeignKey(Conversation, on_delete=models.CASCADE, null=True, blank=True)
