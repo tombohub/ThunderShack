@@ -18,8 +18,8 @@ def inbox(request):
 # list messages in inbox
 def conversation(request, pk):
     conversation = Conversation.objects.get(pk=pk)
-    priv_messages = PrivateMessage.objects.filter(conversation=conversation)
-    context = {'priv_messages':priv_messages, 'conversation':conversation}
+    private_messages = PrivateMessage.objects.filter(conversation=conversation)
+    context = {'private_messages':private_messages, 'conversation':conversation}
     return render(request, 'private_messages/conversation.html', context)
 
 
