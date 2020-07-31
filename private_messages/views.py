@@ -27,10 +27,12 @@ def conversation(request, pk):
 def send(request):
     if request.user.is_authenticated:                
         ad_id = request.GET['ad']
+        ad = Ad.objects.get(id=ad_id)
         if request.method == 'POST':                       
             form = PrivateMessageForm(request.POST)
             if form.is_valid():
-                conversation = Conversation.objects.create(ad_id=ad_id, starter=request.user)              
+                conversation = Conversation.objects.create(ad_id=ad_id, starter=request.user)  
+                conversation.participants.add(request.user, ad.author)            
                 f = form.save(commit=False)
                 f.sender = request.user
                 f.ad_id = ad_id
