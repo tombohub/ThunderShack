@@ -74,7 +74,10 @@ def edit(request, pk):
 #single ad view
 def ad_details(request, pk, slug):
     ad = Ad.objects.get(slug=slug, pk=pk)
-    conversation = Conversation.get_if_exists(ad=ad, starter=request.user)
+    if request.user.is_authenticated:
+        conversation = Conversation.get_if_exists(ad=ad, starter=request.user)
+    else:
+        conversation = None
     form = PrivateMessageForm()
     context = {'ad':ad, 'form':form, 'conversation':conversation}
     return render(request, 'ads/ad_details.html', context)
