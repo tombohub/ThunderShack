@@ -10,7 +10,7 @@ from django.utils.text import slugify
 class Ad(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100)
-    price = models.CharField(max_length=10)
+    price = models.DecimalField(max_digits=10, decimal_places=0)
     description = models.TextField()
     phone_number =models.CharField
     date_posted = models.DateTimeField(default=timezone.now)

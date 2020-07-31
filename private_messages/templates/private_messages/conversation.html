@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>Conversation with {{ conversation.starter }}<br>
+{% for priv_message in priv_messages %}
+    <p>ad - {{ priv_message.ad.title }} <br>
+    receiver - {{ priv_message.ad.author }} <br>
+    body - {{ priv_message.body }} <br>
+    date - {{ priv_message.date }} <br>
+{% endfor %}
+{% endblock content %}
