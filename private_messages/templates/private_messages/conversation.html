@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>Conversation with {{ conversation.starter }}<br>
-{% for priv_message in priv_messages %}
-    <p>ad - {{ priv_message.ad.title }} <br>
-    receiver - {{ priv_message.ad.author }} <br>
-    body - {{ priv_message.body }} <br>
-    date - {{ priv_message.date }} <br>
-{% endfor %}
+<main class='container'>
+    <p>Conversation with {{ conversation.starter }}<br>
+    <p>ad - {{ conversation.ad.title }} <br>
+        <p>{{conversation.participants}}</p>
+    
+    {% for private_message in private_messages %}
+    {% if private_message.receiver == request.user %}
+    <div class='row border border-dark justify-content-end'>
+    {% else %}
+     <div class='row border border-dark justify-content-start'>
+    {% endif %}
+            receiver - {{ private_message.receiver }} <br>
+            body - {{ private_message.body }} <br>
+            date - {{ private_message.date }} <br>
+    </div>
+    {% endfor %}
+
+    </div>
+</main>
+
 {% endblock content %}
