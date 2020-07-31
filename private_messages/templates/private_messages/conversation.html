@@ -7,7 +7,7 @@
     <p>ad - {{ conversation.ad.title }} <br>
     
     {% for private_message in private_messages %}
-    {% if private_message.receiver == request.user %}
+    {% if private_message.sender == request.user %}
     <div class='row border border-dark justify-content-end'>
     {% else %}
      <div class='row border border-dark justify-content-start'>
@@ -17,7 +17,7 @@
             date - {{ private_message.date }} <br>
     </div>
     {% endfor %}
-    <form action="{% url 'messages-send' %}?ad={{conversation.ad.id}}" method="POST" class="my-3">
+    <form action="{% url 'messages-send' %}?conversation={{conversation.id}}" method="POST" class="my-3">
         <div class="form-group">
             {% csrf_token %}
                 {{form | crispy}}
