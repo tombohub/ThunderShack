@@ -1,28 +1,50 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load humanize %}
+
 
 {% block content %}
 <main class='container'>
-    <p>Conversation with {{ conversation.starter }}<br>
-    <p>ad - {{ conversation.ad.title }} <br>
-    
-    {% for private_message in private_messages %}
-    {% if private_message.sender == request.user %}
-    <div class='row border border-dark justify-content-end'>
-    {% else %}
-     <div class='row border border-dark justify-content-start'>
-    {% endif %}
-            receiver - {{ private_message.receiver }} <br>
-            body - {{ private_message.body }} <br>
-            date - {{ private_message.date }} <br>
-    </div>
-    {% endfor %}
+    <div class='card'>
+        <div class="row no-gutters">
+            <div class='col-sm-4'>
+                <img class='ad-image-inbox' src="{{conversation.ad.image.url}}" alt="ad image">
+            </div>
+            <div class="col-sm-8">
+                <div class="card-body">
+                    <a class='stretched-link' href="{{ conversation.ad.get_absolute_url }}">
+                        <h6 class='card-title'>{{ conversation.ad.title }}</h6> 
+                    </a>
+                    <p class='card-text'>
+                        {{ conversation.ad.price }}$
+                    </p> 
+                </div> <!-- card body -->
+            </div> <!-- col-sm-8 -->
+        </div> <!-- row -->
+    </div> <!-- card -->
+
+    <div class='d-flex flex-column p-4 border'>
+{% for private_message in private_messages %}
+{% if private_message.sender == request.user %}
+        <div class='align-self-end'>
+            <div class='text-light bg-primary rounded text-center p-2'>
+{% else %}
+        <div class='align-self-start'>
+            <div class='text-dark bg-light rounded text-center p-2'>
+{% endif %}
+                {{ private_message.body }} 
+            </div>
+            <small class='text-muted'>{{ private_message.date | naturaltime}}</small>
+        </div>
+        {% endfor %}
+</div><!-- d-flex -->
+      
     <form action="{% url 'messages-send' %}?conversation={{conversation.id}}" method="POST" class="my-3">
         <div class="form-group">
             {% csrf_token %}
                 {{form | crispy}}
         </div>
-        <input type='submit' class='btn btn-primary btn-block' value='Send Message'>Send Message</input>
+        <input type='submit' class='btn btn-primary btn-block' value='Send Message'></input>
     </form>
 </main>
 
