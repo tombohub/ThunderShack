@@ -17,9 +17,10 @@ def inbox(request):
 
 # list messages in inbox
 def conversation(request, pk):
+    form = PrivateMessageForm()
     conversation = Conversation.objects.get(pk=pk)
     private_messages = PrivateMessage.objects.filter(conversation=conversation)
-    context = {'private_messages':private_messages, 'conversation':conversation}
+    context = {'private_messages':private_messages, 'conversation':conversation, 'form':form}
     return render(request, 'private_messages/conversation.html', context)
 
 
@@ -35,6 +36,7 @@ def send(request):
                 conversation.participants.add(request.user, ad.author)            
                 f = form.save(commit=False)
                 f.sender = request.user
+                f.receiver = ad.author
                 f.ad_id = ad_id
                 f.conversation = conversation
                 f.save()

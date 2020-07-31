@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <main class='container'>
     <p>Conversation with {{ conversation.starter }}<br>
     <p>ad - {{ conversation.ad.title }} <br>
-        <p>{{conversation.participants}}</p>
     
     {% for private_message in private_messages %}
     {% if private_message.receiver == request.user %}
@@ -17,8 +17,13 @@
             date - {{ private_message.date }} <br>
     </div>
     {% endfor %}
-
-    </div>
+    <form action="{% url 'messages-send' %}?ad={{conversation.ad.id}}" method="POST" class="my-3">
+        <div class="form-group">
+            {% csrf_token %}
+                {{form | crispy}}
+        </div>
+        <button class='btn btn-primary btn-block'>Send Message</button>
+    </form>
 </main>
 
 {% endblock content %}
