@@ -38,7 +38,7 @@
             {% else %}
                 <div class="card-body">
                     <button class='btn btn-primary btn-block' id='message1' onclick="fillText()">Hello neighbour, is this still available?</button>
-                    <form action="{% url 'messages-send' %}?ad={{ad.id}}" method="POST" class="my-3">
+                    <form action="{% url 'messages-conversation-start' %}?ad={{ad.id}}" method="POST" class="my-3">
                         <div class="form-group">
                             {% csrf_token %}
                                 {{form | crispy}}
