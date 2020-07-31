@@ -1,12 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% for conversation in conversations %}
-     <p> starter - {{ conversation.starter }} <br>
-        ad - {{ conversation.ad.title }} <br>
+<main class="container">
+    {% for conversation in conversations %}
+    <div class='card'>
+        <div class="row no-gutters">
+            <div class='col-sm-4'>
+                <img class='ad-image-inbox' src="{{conversation.ad.image.url}}" alt="ad image">
+            </div>
+            <div class="col-sm-8">
+                <div class="card-body">
+                    <a class='stretched-link' href="{% url 'messages-conversation' conversation.id %}">
+                        <h6 class='card-title'>{{ conversation.ad.title }}</h6> 
+                    </a>
+                    <p class='card-text'>
+                        {{ conversation.latest_message.body }}
+                    </p>
+                    <p class='text-muted'>
+                        {% if conversation.starter == request.user %}
+                        {{ conversation.participant }}
+                        {% else %}
+                        {{ conversation.starter }}
+                        {% endif %}
+                    </p> 
+                </div> <!-- card body -->
+            </div> <!-- col-sm-8 -->
+        </div> <!-- row -->
+    </div> <!-- card -->
+    {% endfor %}
 
-        conversation - {{ conversation.id }} <br>
-    link - <a href="{% url 'messages-conversation' conversation.id %}">link</a>
-    <hr>
-{% endfor %}
+</main>
 {% endblock content %}

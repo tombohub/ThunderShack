@@ -6,13 +6,14 @@ from django.conf import settings
 from .models import PrivateMessage, Conversation
 from ads.models import Ad
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 
 # Create your views here.
 
 # list messages in inbox
 def inbox(request):
-    conversations = Conversation.objects.filter(participants=request.user)
+    conversations = Conversation.objects.filter(Q(starter=request.user) | Q(participant=request.user))
     context = {'conversations':conversations}
     return render(request, 'private_messages/inbox.html', context)
 
@@ -31,11 +32,9 @@ def conversation_start(request):
         if request.method == 'POST':
             form = PrivateMessageForm(request.POST)
             if form.is_valid():
-                conversation = Conversation.objects.create(ad=ad, starter=request.user)
-                conversation.participants.add(request.user, ad.author)
+                conversation = Conversation.objects.create(ad=ad, starter=request.user, participant=ad.author)
                 f = form.save(commit=False)
                 f.sender = request.user
-                f.receiver = ad.author
                 f.conversation = conversation
                 f.save()
                 messages.success(request, f'Message sent!')
