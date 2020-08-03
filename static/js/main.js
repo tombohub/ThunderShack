@@ -1,23 +1,37 @@
 
+ document.onload = scrollToBottom()
+ //setInterval(refreshConversationHTML, 3000)
 
+
+
+
+ /**
+ * fill the textarea in ad reply to premade message
+ */
 function fillText() {
     const button =  document.getElementById('message1');
     const text =  button.textContent;
     document.getElementById('id_body').value = text;
 }
 
-document.onload = scrollToBottom()
 
-
+/**
+ * scroll to bottom of the conversation div
+ */
 function scrollToBottom() {
     let conversation_box = document.getElementById('conversation');
     conversation_box.scrollTop = conversation_box.scrollHeight;
 }
 
-//get new messages in conversation
+
+/*                */
+/*  FETCHING JSON */
+/*                */
+
+//get json data of all the messages in conversation
 async function getMessages() {
     const conversation_box  = document.getElementById('conversation')
-    const url = '/messages/conversation_ajax/34/'
+    const url = '/messages/conversation_json/34/'
 
     const json_response = await (await fetch(url)).json()
 
@@ -25,7 +39,8 @@ async function getMessages() {
 
 }
 
-// add new message to the HTML
+// loop through the conversation messages and generate HTML for new ones, then 
+// insert into the website HTML
 async function addMessage() {
     const private_messages_list = await getMessages()
 
@@ -46,12 +61,15 @@ async function addMessage() {
     }
 
     scrollToBottom()
-
-    
-
-    //conversation_box.insertAdjacentHTML("beforeend", message_HTML)
 }
 
+
+
+/**
+ * generate HTML template for message so it can be inserted into the website HTLM
+ * @param {strig} current_user the username of current user
+ * @param {obj} message json object of message data
+ */
 function getMessageHTML(current_user, message) {
     if (current_user === message.sender) {
         message_HTML = `<div class='align-self-end' id='${message.id}'>
@@ -70,3 +88,74 @@ function getMessageHTML(current_user, message) {
     }
     return message_HTML
 }
+
+
+
+
+/*********************************/
+/*** FETHCING CONVERSATION HTML **/
+/*********************************/
+
+
+/**
+ * fetch html from server for conversation box template then refresh the
+ * conversation div
+ */
+async function refreshConversationHTML() {
+    const conversation_div  = document.getElementById('conversation')
+    const url = '/messages/conversation_html/34/'
+
+    const html_response = await (await fetch(url)).text()
+
+    conversation_div.innerHTML = html_response
+
+    scrollToBottom()
+}
+
+
+/**************************/
+/*****FORM POST MESSAGE****/
+/**************************/
+
+async function postMessage(event) {
+    event.preventDefault()
+
+    let csrftoken = getCookie('csrftoken')
+
+    let conversation_form = document.getElementById('conversation_form')
+    let form_data = new FormData(conversation_form)
+
+    console.log(form_data)
+    let response = await fetch('/messages/send_ajax/?conversation=34', {
+        method: 'POST',
+        body: form_data,
+        credentials: 'include',
+        // headers: {
+        //     "X-CSRFToken": csrftoken,
+        // }
+    });
+
+    console.log(response)
+    
+}
+
+
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+document.querySelector('form').addEventListener('submit', postMessage);
