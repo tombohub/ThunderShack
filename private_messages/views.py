@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from .forms import PrivateMessageForm, ConversationMessageForm
 from django.contrib import messages
 from django.conf import settings
@@ -27,7 +27,7 @@ def conversation(request, pk):
 
 
 # return json of messages that belongs to conversation
-def conversation_ajax(request, pk):
+def conversation_json(request, pk):
     form = ConversationMessageForm()
     conversation = Conversation.objects.get(pk=pk)
     private_messages = PrivateMessage.objects.filter(conversation=conversation)
@@ -43,6 +43,15 @@ def conversation_ajax(request, pk):
         private_messages_list.append(private_message_data)
 
     return JsonResponse(private_messages_list, safe=False)
+
+
+
+def conversation_html(request, pk):
+    conversation = Conversation.objects.get(pk=pk)
+    private_messages = PrivateMessage.objects.filter(conversation=conversation)
+    context = {'private_messages':private_messages, 'conversation':conversation}
+    return render(request, 'private_messages/conversation_html.html', context)
+
 
 
 # start conversation when first time reply to an ad
@@ -85,6 +94,27 @@ def send(request):
     else: 
         messages.info(request, f'Please login first')
         return redirect(f'{settings.LOGIN_URL}?next={request.path} ')
+
+
+
+# form to send private message
+def send_ajax(request):
+    if request.user.is_authenticated:                
+        if request.method == 'POST':                       
+            form = PrivateMessageForm(request.POST)
+            if form.is_valid():
+                conversation = Conversation.objects.get(id=request.GET['conversation'])  
+                f = form.save(commit=False)
+                f.sender = request.user
+                f.conversation = conversation
+                f.save()
+                return HttpResponse('success')
+        else:
+            return HttpResponse('not right')
+    else: 
+        return HttpResponse('not allowed')
+    print('heloooooooo', form.errors)
+    print('pooooooooooooost', request.user)
 
 # list of sent messages from user
 # def sent(request):

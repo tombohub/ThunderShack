@@ -48,7 +48,8 @@
 <!-- CONVERSATION END -->
 
 
-    <form action="{% url 'messages-send' %}?conversation={{conversation.id}}" method="POST" class="my-3">
+    <form  action="{% url 'messages-send' %}?conversation={{conversation.id}}" id='conversation_form'
+    enctype='multipart/form-data' method="POST" class="my-3">
             {% csrf_token %}
             <div class="input-group">
                 {{ form.body | add_class:'form-control form-control-lg' | attr:'autofocus'}}
