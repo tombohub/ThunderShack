@@ -1,6 +1,7 @@
 
  document.onload = scrollToBottom()
- //setInterval(refreshConversationHTML, 3000)
+ setInterval(refreshConversationHTML, 3000)
+ document.querySelector('form').addEventListener('submit', postMessage);
 
 
 
@@ -24,9 +25,9 @@ function scrollToBottom() {
 }
 
 
-/*                */
-/*  FETCHING JSON */
-/*                */
+/*                        */
+/*  FETCHING MESSAGE JSON */
+/*                        */
 
 //get json data of all the messages in conversation
 async function getMessages() {
@@ -119,23 +120,24 @@ async function refreshConversationHTML() {
 
 async function postMessage(event) {
     event.preventDefault()
-
+    
     let csrftoken = getCookie('csrftoken')
-
+    
     let conversation_form = document.getElementById('conversation_form')
     let form_data = new FormData(conversation_form)
-
-    console.log(form_data)
+    document.getElementById('message-input').value = ''
+    
     let response = await fetch('/messages/send_ajax/?conversation=34', {
         method: 'POST',
         body: form_data,
         credentials: 'include',
-        // headers: {
-        //     "X-CSRFToken": csrftoken,
-        // }
+        headers: {
+            "X-CSRFToken": csrftoken,
+        }
     });
 
-    console.log(response)
+    await refreshConversationHTML()
+    
     
 }
 
@@ -157,5 +159,3 @@ function getCookie(name) {
     return cookieValue;
 }
 
-
-document.querySelector('form').addEventListener('submit', postMessage);
