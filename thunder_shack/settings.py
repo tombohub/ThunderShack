@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_rename_app',
     'django_sass',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
