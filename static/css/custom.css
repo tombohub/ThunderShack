@@ -24,3 +24,9 @@
    justify-content: center;
    margin: 0 auto;
 }
+
+
+#conversation {
+    height: 400px;
+    overflow: auto;
+}

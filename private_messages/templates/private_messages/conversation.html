@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load humanize %}
+{% load widget_tweaks %}
 
 
 {% block content %}
 <main class='container'>
-    <div class='card'>
+    <input type="hidden" id='current-user' value="{{ request.user }}">
+
+    <!-- AD DISPLAY-->
+    <div class='card mt-5'>
         <div class="row no-gutters">
             <div class='col-sm-4'>
                 <img class='ad-image-inbox' src="{{conversation.ad.image.url}}" alt="ad image">
@@ -22,14 +26,17 @@
             </div> <!-- col-sm-8 -->
         </div> <!-- row -->
     </div> <!-- card -->
+<!-- AD DISPLAY END -->
 
-    <div class='d-flex flex-column p-4 border'>
+
+<!-- CONVERSATION -->
+    <div class='d-flex flex-column p-4 border rounded' id='conversation'>
 {% for private_message in private_messages %}
 {% if private_message.sender == request.user %}
-        <div class='align-self-end'>
+        <div class='align-self-end' id="{{ private_message.id }}">
             <div class='text-light bg-primary rounded text-center p-2'>
 {% else %}
-        <div class='align-self-start'>
+        <div class='align-self-start' id="{{ private_message.id }}">
             <div class='text-dark bg-light rounded text-center p-2'>
 {% endif %}
                 {{ private_message.body }} 
@@ -38,13 +45,19 @@
         </div>
         {% endfor %}
 </div><!-- d-flex -->
-      
+<!-- CONVERSATION END -->
+
+
     <form action="{% url 'messages-send' %}?conversation={{conversation.id}}" method="POST" class="my-3">
-        <div class="form-group">
             {% csrf_token %}
-                {{form | crispy}}
-        </div>
-        <input type='submit' class='btn btn-primary btn-block' value='Send Message'></input>
+            <div class="input-group">
+                {{ form.body | add_class:'form-control form-control-lg' | attr:'autofocus'}}
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary">
+                        Send
+                    </button>
+                </div> <!-- input group append-->
+            </div> <!-- input-group -->
     </form>
 </main>
 

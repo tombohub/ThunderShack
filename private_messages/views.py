@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
-from .forms import PrivateMessageForm
+from django.http import HttpResponseRedirect, JsonResponse
+from .forms import PrivateMessageForm, ConversationMessageForm
 from django.contrib import messages
 from django.conf import settings
 from .models import PrivateMessage, Conversation
@@ -19,12 +19,33 @@ def inbox(request):
 
 # list messages in specific conversation
 def conversation(request, pk):
-    form = PrivateMessageForm()
+    form = ConversationMessageForm()
     conversation = Conversation.objects.get(pk=pk)
     private_messages = PrivateMessage.objects.filter(conversation=conversation)
     context = {'private_messages':private_messages, 'conversation':conversation, 'form':form}
     return render(request, 'private_messages/conversation.html', context)
 
+
+# return json of messages that belongs to conversation
+def conversation_ajax(request, pk):
+    form = ConversationMessageForm()
+    conversation = Conversation.objects.get(pk=pk)
+    private_messages = PrivateMessage.objects.filter(conversation=conversation)
+
+    private_messages_list = []
+    for private_message in private_messages:
+        private_message_data = {
+            'id' : private_message.id,
+            'body' : private_message.body,
+            'date' : private_message.date,
+            'sender' : private_message.sender.username,
+        }
+        private_messages_list.append(private_message_data)
+
+    return JsonResponse(private_messages_list, safe=False)
+
+
+# start conversation when first time reply to an ad
 def conversation_start(request):
     if request.user.is_authenticated:
         ad_id = request.GET['ad']
@@ -57,7 +78,6 @@ def send(request):
                 f.sender = request.user
                 f.conversation = conversation
                 f.save()
-                messages.success(request, f'Message sent!')
                 return redirect(request.META['HTTP_REFERER'])
         else:
             form = PrivateMessageForm()
