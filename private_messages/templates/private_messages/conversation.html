@@ -52,7 +52,7 @@
     enctype='multipart/form-data' method="POST" class="my-3">
             {% csrf_token %}
             <div class="input-group">
-                {{ form.body | add_class:'form-control form-control-lg' | attr:'autofocus'}}
+                {{ form.body | add_class:'form-control form-control-lg' | attr:'autofocus' }}
                 <div class="input-group-append">
                     <button class="btn btn-outline-primary">
                         Send

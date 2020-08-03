@@ -113,8 +113,6 @@ def send_ajax(request):
             return HttpResponse('not right')
     else: 
         return HttpResponse('not allowed')
-    print('heloooooooo', form.errors)
-    print('pooooooooooooost', request.user)
 
 # list of sent messages from user
 # def sent(request):
