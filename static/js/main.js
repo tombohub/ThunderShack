@@ -32,7 +32,9 @@ function scrollToBottom() {
 //get json data of all the messages in conversation
 async function getMessages() {
     const conversation_box  = document.getElementById('conversation')
-    const url = '/messages/conversation_json/34/'
+    const conv_id = document.getElementById('conversation-id').value
+
+    const url = '/messages/conversation_json/' + conv_id
 
     const json_response = await (await fetch(url)).json()
 
@@ -104,7 +106,9 @@ function getMessageHTML(current_user, message) {
  */
 async function refreshConversationHTML() {
     const conversation_div  = document.getElementById('conversation')
-    const url = '/messages/conversation_html/34/'
+    const conv_id = document.getElementById('conversation-id').value
+
+    const url = '/messages/conversation_html/' + conv_id
 
     const html_response = await (await fetch(url)).text()
 
@@ -124,10 +128,12 @@ async function postMessage(event) {
     let csrftoken = getCookie('csrftoken')
     
     let conversation_form = document.getElementById('conversation_form')
+    const conv_id = document.getElementById('conversation-id').value
+
     let form_data = new FormData(conversation_form)
     document.getElementById('message-input').value = ''
     
-    let response = await fetch('/messages/send_ajax/?conversation=34', {
+    let response = await fetch('/messages/send_ajax/?conversation=' + conv_id, {
         method: 'POST',
         body: form_data,
         credentials: 'include',

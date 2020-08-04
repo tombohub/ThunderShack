@@ -143,3 +143,8 @@ MESSAGE_TAGS = {
 LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'tkutlesa@gmail.com'
+EMAIL_HOST_PASSWORD = '711425oO!!'
+EMAIL_PORT = 587
