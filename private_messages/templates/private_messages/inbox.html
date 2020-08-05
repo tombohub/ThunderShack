@@ -11,12 +11,12 @@
             </div>
             <div class="col-sm-8">
                 <div class="card-body">
-                    <a class='stretched-link' href="{% url 'messages-conversation' conversation.id %}">
-                        <h6 class='card-title'>{{ conversation.ad.title }}</h6> 
+                    <a class='stretched-link' href="{% url 'messages-conversation' id=conversation.id %}">
+                        <h6 class='card-title'>{{ conversation.ad.title }}</h6>
                     </a>
                     <p class='card-text d-flex justify-content-between'>
                         {{ conversation.latest_message.body }}
-                       <small class='text-muted'>{{ conversation.latest_message.date | naturaltime }}</small>
+                        <small class='text-muted'>{{ conversation.latest_message.date | naturaltime }}</small>
                     </p>
                     <p class='text-muted'>
                         {% if conversation.starter == request.user %}
@@ -24,7 +24,7 @@
                         {% else %}
                         {{ conversation.starter }}
                         {% endif %}
-                    </p> 
+                    </p>
                 </div> <!-- card body -->
             </div> <!-- col-sm-8 -->
         </div> <!-- row -->

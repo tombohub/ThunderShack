@@ -13,16 +13,20 @@ from django.db.models import Q
 
 # list messages in inbox
 def inbox(request):
-    conversations = Conversation.objects.filter(Q(starter=request.user) | Q(participant=request.user))
-    context = {'conversations':conversations}
+    conversations = Conversation.objects.filter(
+        Q(starter=request.user) | Q(participant=request.user))
+    context = {'conversations': conversations}
     return render(request, 'private_messages/inbox.html', context)
 
 # list messages in specific conversation
+
+
 def conversation(request, pk):
     form = ConversationMessageForm()
     conversation = Conversation.objects.get(pk=pk)
     private_messages = PrivateMessage.objects.filter(conversation=conversation)
-    context = {'private_messages':private_messages, 'conversation':conversation, 'form':form}
+    context = {'private_messages': private_messages,
+               'conversation': conversation, 'form': form}
     return render(request, 'private_messages/conversation.html', context)
 
 
@@ -35,23 +39,22 @@ def conversation_json(request, pk):
     private_messages_list = []
     for private_message in private_messages:
         private_message_data = {
-            'id' : private_message.id,
-            'body' : private_message.body,
-            'date' : private_message.date,
-            'sender' : private_message.sender.username,
+            'id': private_message.id,
+            'body': private_message.body,
+            'date': private_message.date,
+            'sender': private_message.sender.username,
         }
         private_messages_list.append(private_message_data)
 
     return JsonResponse(private_messages_list, safe=False)
 
 
-
 def conversation_html(request, pk):
     conversation = Conversation.objects.get(pk=pk)
     private_messages = PrivateMessage.objects.filter(conversation=conversation)
-    context = {'private_messages':private_messages, 'conversation':conversation}
+    context = {'private_messages': private_messages,
+               'conversation': conversation}
     return render(request, 'private_messages/conversation_html.html', context)
-
 
 
 # start conversation when first time reply to an ad
@@ -62,7 +65,8 @@ def conversation_start(request):
         if request.method == 'POST':
             form = PrivateMessageForm(request.POST)
             if form.is_valid():
-                conversation = Conversation.objects.create(ad=ad, starter=request.user, participant=ad.author)
+                conversation = Conversation.objects.create(
+                    ad=ad, starter=request.user, participant=ad.author)
                 f = form.save(commit=False)
                 f.sender = request.user
                 f.conversation = conversation
@@ -78,11 +82,12 @@ def conversation_start(request):
 
 # form to send private message
 def send(request):
-    if request.user.is_authenticated:                
-        if request.method == 'POST':                       
+    if request.user.is_authenticated:
+        if request.method == 'POST':
             form = PrivateMessageForm(request.POST)
             if form.is_valid():
-                conversation = Conversation.objects.get(id=request.GET['conversation'])  
+                conversation = Conversation.objects.get(
+                    id=request.GET['conversation'])
                 f = form.save(commit=False)
                 f.sender = request.user
                 f.conversation = conversation
@@ -90,20 +95,20 @@ def send(request):
                 return redirect(request.META['HTTP_REFERER'])
         else:
             form = PrivateMessageForm()
-            return render(request, 'private_messages/send.html', {'form':form})
-    else: 
+            return render(request, 'private_messages/send.html', {'form': form})
+    else:
         messages.info(request, f'Please login first')
         return redirect(f'{settings.LOGIN_URL}?next={request.path} ')
 
 
-
 # form to send private message
 def send_ajax(request):
-    if request.user.is_authenticated:                
-        if request.method == 'POST':                       
+    if request.user.is_authenticated:
+        if request.method == 'POST':
             form = PrivateMessageForm(request.POST)
             if form.is_valid():
-                conversation = Conversation.objects.get(id=request.GET['conversation'])  
+                conversation = Conversation.objects.get(
+                    id=request.GET['conversation'])
                 f = form.save(commit=False)
                 f.sender = request.user
                 f.conversation = conversation
@@ -111,7 +116,7 @@ def send_ajax(request):
                 return HttpResponse('success')
         else:
             return HttpResponse('not right')
-    else: 
+    else:
         return HttpResponse('not allowed')
 
 # list of sent messages from user
