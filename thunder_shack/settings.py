@@ -131,13 +131,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
-MEDIA_URL =  '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
-CRISPY_TEMPLATE_PACK="bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MESSAGE_TAGS = {
-      messages.ERROR: 'danger',
+    messages.ERROR: 'danger',
 }
 
 LOGIN_URL = '/users/login/'
@@ -148,3 +148,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'email'
 EMAIL_HOST_PASSWORD = 'email_pass'
 EMAIL_PORT = 587
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
