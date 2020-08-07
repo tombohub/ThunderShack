@@ -3,19 +3,28 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from PIL import Image
+from django.core.files import File
+from io import BytesIO
+import os
 
 # Create your models here.
 
- # model fields, database columns
+# model fields, database columns
+
+
 class Ad(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=0)
     description = models.TextField()
-    phone_number =models.CharField
+    phone_number = models.CharField
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='ad_images/default.png', upload_to='ad_images')
+    image = models.ImageField(
+        default='ad_images/default.png', upload_to='ad_images')
+    thumbnail = models.ImageField(
+        default='ad_thumbnails/default.png', upload_to='ad_thumbnails')
 
     # options of the model
     class Meta:
@@ -24,11 +33,22 @@ class Ad(models.Model):
     # this is how the object to be displayed
     def __str__(self):
         return self.title
-    
+
     def get_absolute_url(self):
-        return reverse('ad-details', kwargs={'pk':self.pk, 'slug':self.slug})
-    
+        return reverse('ad-details', kwargs={'pk': self.pk, 'slug': self.slug})
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-        return super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+        output_size = (250, 250)
+        img.thumbnail(output_size, Image.ANTIALIAS)
+        thumb_io = BytesIO()
+        img.save(thumb_io, 'JPEG')
+
+        # chose same name as original image
+        name = os.path.basename(self.image.name)
+        # save=False in order not to call super().save() again and again..
+        self.thumbnail.save(name, File(thumb_io), save=False)
