@@ -6,7 +6,7 @@
 <div class='jumbotron'>
     <h1 class="display-4">Keep it in the Neighbourhood</h1>
     <p class='lead'>Keep It In <br>
-         The Neighbourhood
+        The Neighbourhood
     </p>
     <hr class="my-4">
     <button class='btn btn-primary btn-lg'>Hello</button>
@@ -18,23 +18,22 @@
 {% block content %}
 <main class='ad-container'>
 
-        {% for ad in ads %}
-            <section class="card">
-                <img class="img-fluid card-img-top ad-image" src=" {{ ad.image.url }} " />
-            
-                <div class="card-body">
-                
-                    <h5 class="card-title">
-                        <a class='stretched-link' href="{{ ad.get_absolute_url }} ">{{ ad.title }}</a>
-                        
-                    </h5>
-                    <div class='ad-price'>
-                        {{ ad.price }}$
-                    </div>
-                </div>
-            </section>
+    {% for ad in ads %}
+    <section class="card">
+        <img class="img-fluid card-img-top ad-image" src=" {{ ad.thumbnail.url }} " />
+
+        <div class="card-body">
+
+            <h5 class="card-title">
+                <a class='stretched-link' href="{{ ad.get_absolute_url }} ">{{ ad.title }}</a>
+
+            </h5>
+            <div class='ad-price'>
+                {{ ad.price }}$
+            </div>
+        </div>
+    </section>
     {% endfor %}
 
 </main>
 {% endblock content %}
-
