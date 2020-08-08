@@ -3,39 +3,74 @@
 
 <!-- Content -->
 {% block content %}
-<main>
-    <h1>Your ads:
 
-    </h1>
+<h1 class="display-4 text-center">My Ads</h1>
+<hr>
+<main class='container'>
 
     {% for ad in ads %}
-       <section class="ad">
-            <img class="ad-image" src=" {{ ad.image.url }} " />
-            <div class="ad-body">
 
-                <div class="ad-header">
-                    <strong class="ad-title">{{ ad.title }}</strong><strong class="ad-price">{{ ad.price }}$</strong>
+    <!-- Modal -->
+    <div class="modal" id="confirm-delete-modal-{{ad.id}}" tabindex="-1" aria-labelledby="confirm-delete"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-
-                <div class="ad-description">
-                   <p>
-                       {{ ad.description }}
-                   </p>
+                <div class="modal-body">
+                    <h5 class="text-center">
+                        Delete this ad?
+                    </h5>
                 </div>
-
-                <div class="ad-footer">
-                    <div class="ad-details">
-                        <small>{{ ad.author }}, {{ ad.date_posted }} </small>
-                    </div>
-                    <div class="ad-buttons">
-                        <a href="{% url 'ads-edit' ad.pk %}">Edit</a>
-                        <a href="{% url 'ads-delete' ad.id %}">Delete</a>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="{% url 'ads-delete' ad.id %}"><button type="button"
+                            class="btn btn-danger">Delete</button></a>
                 </div>
-
             </div>
-       </section>
+        </div>
+    </div>
+
+    <!-- Ad card -->
+    <section class="card my-2 shadow-sm">
+        <div class="row no-gutters">
+            <div class="col-sm-3">
+                <img src="{{ad.thumbnail.url}}" alt="" class="card-img ad-image-list">
+            </div>
+            <div class="col-sm-9">
+                <div class="card-body d-flex flex-column h-100 pb-2">
+
+                    <header class="d-flex flex-row justify-content-between border-bottom">
+                        <h6>{{ad.title}}</h6>
+                        <h6> {{ad.price}}$ </h6>
+                    </header>
+
+                    <p class="card-text flex-grow-1 pt-1">{{ad.description}}</p>
+
+                    <footer class="d-flex justify-content-between border-top pt-1">
+                        <!-- edit ad button -->
+                        <a href="{% url 'ads-edit' ad.id %}">
+                            <button class="btn btn-outline-primary">
+                                <i class="far fa-edit mr-1"></i>Edit
+                            </button>
+                        </a>
+                        <!--delete modal button-->
+                        <button class="btn btn-outline-danger" data-toggle="modal"
+                            data-target="#confirm-delete-modal-{{ad.id}}">
+                            <i class="far fa-trash-alt mr-1"></i>Delete
+                        </button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
     {% endfor %}
 </main>
 {% endblock content %}
-

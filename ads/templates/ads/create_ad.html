@@ -2,11 +2,15 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="container p-5">
+    <h2 class="font-weight-bold mt-3">Create ad</h2>
+    <hr>
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-            {{form | crispy}}
+        {{form | crispy}}
 
-        <input type="submit" class=""/>
+        <button class="btn btn-primary btn-lg" type="submit">Post ad</button>
 
     </form>
+</div>
 {% endblock content %}

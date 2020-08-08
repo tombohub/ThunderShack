@@ -5,62 +5,66 @@
 
 
 {% block content %}
+<p class="lead text-secondary text-center">Conversation with
+    {% if conversation.starter == request.user %}
+    {{ conversation.participant }}
+    {% else %}
+    {{ conversation.starter }}
+    {% endif %}
+</p>
 <main class='container'>
     <input type="hidden" id='current-user' value="{{ request.user }}">
     <input type="hidden" id='conversation-id' value="{{ conversation.id }}">
-    
+
     <!-- AD DISPLAY-->
-    <div class='card mt-5'>
+    <section class='card mt-2 mb-2'>
         <div class="row no-gutters">
-            <div class='col-sm-4'>
-                <img class='ad-image-inbox' src="{{conversation.ad.image.url}}" alt="ad image">
+            <div class='col-sm-2'>
+                <img class='ad-image-inbox' src="{{conversation.ad.thumbnail.url}}" alt="ad image">
             </div>
             <div class="col-sm-8">
                 <div class="card-body">
-                    <a class='stretched-link' href="{{ conversation.ad.get_absolute_url }}">
-                        <h6 class='card-title'>{{ conversation.ad.title }}</h6> 
-                    </a>
-                    <p class='card-text'>
-                        {{ conversation.ad.price }}$
-                    </p> 
+                    <h6 class='card-title'>{{ conversation.ad.title }}</h6>
+                    <p class='card-text'>{{ conversation.ad.price }}$ </p>
                 </div> <!-- card body -->
             </div> <!-- col-sm-8 -->
         </div> <!-- row -->
-    </div> <!-- card -->
-<!-- AD DISPLAY END -->
+        <a class='stretched-link' href="{{ conversation.ad.get_absolute_url }}"></a>
+    </section> <!-- card -->
+    <!-- AD DISPLAY END -->
 
 
-<!-- CONVERSATION -->
+    <!-- CONVERSATION -->
     <div class='d-flex flex-column p-4 border rounded' id='conversation'>
-{% for private_message in private_messages %}
-{% if private_message.sender == request.user %}
+        {% for private_message in private_messages %}
+        {% if private_message.sender == request.user %}
         <div class='align-self-end' id="{{ private_message.id }}">
             <div class='text-light bg-primary rounded text-center p-2'>
-{% else %}
-        <div class='align-self-start' id="{{ private_message.id }}">
-            <div class='text-dark bg-light rounded text-center p-2'>
-{% endif %}
-                {{ private_message.body }} 
-            </div>
-            <small class='text-muted'>{{ private_message.date | naturaltime}}</small>
-        </div>
-        {% endfor %}
-</div><!-- d-flex -->
-<!-- CONVERSATION END -->
+                {% else %}
+                <div class='align-self-start' id="{{ private_message.id }}">
+                    <div class='text-dark bg-light rounded text-center p-2'>
+                        {% endif %}
+                        {{ private_message.body }}
+                    </div>
+                    <small class='text-muted'>{{ private_message.date | naturaltime}}</small>
+                </div>
+                {% endfor %}
+            </div><!-- d-flex -->
+            <!-- CONVERSATION END -->
 
 
-    <form  action="{% url 'messages-send' %}?conversation={{conversation.id}}" id='conversation_form'
-    enctype='multipart/form-data' method="POST" class="my-3">
-            {% csrf_token %}
-            <div class="input-group">
-                {{ form.body | add_class:'form-control form-control-lg' | attr:'autofocus' }}
-                <div class="input-group-append">
-                    <button class="btn btn-outline-primary">
-                        Send
-                    </button>
-                </div> <!-- input group append-->
-            </div> <!-- input-group -->
-    </form>
+            <form action="{% url 'messages-send' %}?conversation={{conversation.id}}" id='conversation_form'
+                enctype='multipart/form-data' method="POST" class="my-3">
+                {% csrf_token %}
+                <div class="input-group">
+                    {{ form.body | add_class:'form-control form-control-lg' | attr:'autofocus' }}
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary">
+                            <i class="far fa-paper-plane"></i>
+                        </button>
+                    </div> <!-- input group append-->
+                </div> <!-- input-group -->
+            </form>
 </main>
 
 {% endblock content %}

@@ -5,24 +5,24 @@
 
 <!-- Content -->
 {% block content %}
-<main class='container'>
+<main class='container mt-4'>
     <div class="row">
         <div class="col-md 8">
             <section class='card'>
                 <h4 class="card-header d-flex justify-content-between">
-                    <span>{{ ad.title }}</span><span>{{ad.price}}$</span> 
+                    <span>{{ ad.title }}</span><span>{{ad.price}}$</span>
                 </h4>
-        
-                        <a href="{{ ad.image.url }}">
-                            <img class='img-fluid ad-image-details card-img-top border' src="{{ ad.image.url }}" alt="">
-                        </a>
-                        <div class="card-body">
-                            <h6 class='text-muted'>Description</h6>
-                            <article class='card-text'>
-                                {{ad.description}}
-                            </article>
-                            <p class="card-text text-muted text-right"><small>{{ad.date_posted | naturaltime}}</small></p>
-                        </div>
+
+                <a href="{{ ad.image.url }}">
+                    <img class='img-fluid ad-image-details card-img-top border' src="{{ ad.image.url }}" alt="">
+                </a>
+                <div class="card-body">
+                    <h6 class='text-muted'>Description</h6>
+                    <article class='card-text'>
+                        {{ad.description}}
+                    </article>
+                    <p class="card-text text-muted text-right"><small>{{ad.date_posted | naturaltime}}</small></p>
+                </div>
             </section>
         </div>
         <aside class='col-md-4'>
@@ -30,23 +30,25 @@
                 <div class="card-header card-title text-center">
                     Contact {{ad.author}}:
                 </div>
-            {% if conversation %}
+                {% if conversation %}
                 <div class="card-body">
                     <p>You already started conversation about this ad with {{ ad.author }}</p>
-                    <a class='btn btn-primary btn-block' href="{{ conversation.get_absolute_url }}">Go to conversation</a>
+                    <a class='btn btn-primary btn-block' href="{{ conversation.get_absolute_url }}">Go to
+                        conversation</a>
                 </div>
-            {% else %}
+                {% else %}
                 <div class="card-body">
-                    <button class='btn btn-primary btn-block' id='message1' onclick="fillText()">Hello neighbour, is this still available?</button>
+                    <button class='btn btn-primary btn-block' id='message1' onclick="fillText()">Hello neighbour, is
+                        this still available?</button>
                     <form action="{% url 'messages-conversation-start' %}?ad={{ad.id}}" method="POST" class="my-3">
                         <div class="form-group">
                             {% csrf_token %}
-                                {{form | crispy}}
+                            {{form | crispy}}
                         </div>
                         <button class='btn btn-primary btn-block'>Send Message</button>
                     </form>
                 </div>
-            {% endif %}
+                {% endif %}
             </div>
         </aside>
     </div>
