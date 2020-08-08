@@ -2,14 +2,25 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="container p-5">
+    <h2 class="font-weight-bold mt-3 text-center">Login</h2>
+    <hr>
+    <p>Please enter your details:</p>
     <form action="" method="POST">
         {% csrf_token %}
-        <table>
-            {{form }}
-        </table>
+        {{form | crispy}}
+        <p class="text-right">
+            <small class="text-muted">Forgot password? : <a href="{% url 'password_reset' %}">
+                    <button class="btn btn-outline-secondary btn-sm">Reset</button></a></small>
+        </p>
 
-        <input type="submit" class="btn btn-primary"/>
+
+        <input type="submit" class="btn btn-primary" />
 
     </form>
-    <p> You don't have an account? It's super easy: <a href="{% url 'register' %}">REGISTER HERE</a></p>
+    <hr>
+    <p class='text-center'> You don't have an account? It's super easy: <a href="{% url 'register' %}">
+            <button class="btn btn-outline-primary btn-sm">REGISTER HERE</button></a>
+    </p>
+</div>
 {% endblock content %}
