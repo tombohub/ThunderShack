@@ -9,7 +9,6 @@
         The Neighbourhood
     </p>
     <hr class="my-4">
-    <button class='btn btn-primary btn-lg'>Hello</button>
 
 </div>
 {% endblock banner %}
@@ -17,21 +16,21 @@
 <!-- Content -->
 {% block content %}
 <main class='ad-container'>
-
     {% for ad in ads %}
-    <section class="card">
+    <section class="card shadow-sm">
         <img class="img-fluid card-img-top ad-image" src=" {{ ad.thumbnail.url }} " />
 
         <div class="card-body">
 
-            <h5 class="card-title">
-                <a class='stretched-link' href="{{ ad.get_absolute_url }} ">{{ ad.title }}</a>
+            <h5 class="card-title">{{ ad.title }}
+
 
             </h5>
             <div class='ad-price'>
                 {{ ad.price }}$
             </div>
         </div>
+        <a class='stretched-link' href="{{ ad.get_absolute_url }} "></a>
     </section>
     {% endfor %}
 
