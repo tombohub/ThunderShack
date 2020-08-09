@@ -38,8 +38,9 @@
                 </div>
                 {% else %}
                 <div class="card-body">
-                    <button class='btn btn-primary btn-block' id='message1' onclick="fillText()">Hello neighbour, is
-                        this still available?</button>
+                    <button class='btn btn-primary btn-block' id='message1' onclick="fillText()">
+                        <span>Hello neighbour, is this still available?</span>
+                    </button>
                     <form action="{% url 'messages-conversation-start' %}?ad={{ad.id}}" method="POST" class="my-3">
                         <div class="form-group">
                             {% csrf_token %}
