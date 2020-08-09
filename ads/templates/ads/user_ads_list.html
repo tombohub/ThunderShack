@@ -11,7 +11,7 @@
     {% for ad in ads %}
 
     <!-- Modal -->
-    <div class="modal" id="confirm-delete-modal-{{ad.id}}" tabindex="-1" aria-labelledby="confirm-delete"
+    <div class="modal fade" id="confirm-delete-modal-{{ad.id}}" tabindex="-1" aria-labelledby="confirm-delete"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -49,7 +49,7 @@
                         <h6> {{ad.price}}$ </h6>
                     </header>
 
-                    <p class="card-text flex-grow-1 pt-1">{{ad.description}}</p>
+                    <p class="card-text flex-grow-1 p-2">{{ad.description}}</p>
 
                     <footer class="d-flex justify-content-between border-top pt-1">
                         <!-- edit ad button -->

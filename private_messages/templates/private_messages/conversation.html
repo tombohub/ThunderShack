@@ -38,10 +38,10 @@
     <div class='d-flex flex-column p-4 border rounded' id='conversation'>
         {% for private_message in private_messages %}
         {% if private_message.sender == request.user %}
-        <div class='align-self-end' id="{{ private_message.id }}">
+        <div class='align-self-end mt-3' id="{{ private_message.id }}">
             <div class='text-light bg-primary rounded text-center p-2'>
                 {% else %}
-                <div class='align-self-start' id="{{ private_message.id }}">
+                <div class='align-self-start mt-3' id="{{ private_message.id }}">
                     <div class='text-dark bg-light rounded text-center p-2'>
                         {% endif %}
                         {{ private_message.body }}

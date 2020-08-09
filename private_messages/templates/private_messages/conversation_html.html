@@ -1,15 +1,15 @@
 {% load humanize %}
 
-    {% for private_message in private_messages %}
-    {% if private_message.sender == request.user %}
-            <div class='align-self-end' id="{{ private_message.id }}">
-                <div class='text-light bg-primary rounded text-center p-2'>
-    {% else %}
-            <div class='align-self-start' id="{{ private_message.id }}">
-                <div class='text-dark bg-light rounded text-center p-2'>
-    {% endif %}
-                    {{ private_message.body }} 
-                </div>
-                <small class='text-muted'>{{ private_message.date | naturaltime}}</small>
+{% for private_message in private_messages %}
+{% if private_message.sender == request.user %}
+<div class='align-self-end mt-3' id="{{ private_message.id }}">
+    <div class='text-light bg-primary rounded text-center p-2'>
+        {% else %}
+        <div class='align-self-start mt-3' id="{{ private_message.id }}">
+            <div class='text-dark bg-light rounded text-center p-2'>
+                {% endif %}
+                {{ private_message.body }}
             </div>
-    {% endfor %}
+            <small class='text-muted text'>{{ private_message.date | naturaltime}}</small>
+        </div>
+        {% endfor %}
