@@ -41,11 +41,12 @@
     </div>
 
     <header>
-        <div id="logged-in-user" class="d-flex justify-content-end pr-4"><small class='text-muted'>Hello,
+        <div id="logged-in-user" class="d-flex justify-content-end pr-4 bg-white shadow-sm"><small
+                class='text-muted'>Hello,
                 {{user.username}}</small>
         </div>
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-sm border-bottom">
+        <nav class="navbar navbar-expand-sm bg-white shadow-sm">
 
             <!-- Left side -->
             <a class='navbar-brand text-dark' href="{% url 'ads-home' %}">
@@ -86,7 +87,7 @@
 
                     {% endif  %}
                     <li class="nav-item ml-1">
-                        <a class="btn btn-accent nav-link text-dark font-weight-bold" role='button'
+                        <a class="btn btn-accent nav-link font-weight-bold shadow-sm" role='button'
                             href="{% url 'create-ad' %}"><i class="fas fa-plus"></i> Post Ad</a>
                     </li>
                 </ul>

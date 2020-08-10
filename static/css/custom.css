@@ -43,3 +43,9 @@
 section.card:hover {
   background-color: #e9ecef;
 }
+
+.jumbotron {
+  background-image: url("../img/jumbotron.jpg");
+  background-position: bottom right;
+  background-repeat: no-repeat;
+}
