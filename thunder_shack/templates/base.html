@@ -29,6 +29,17 @@
 </head>
 
 <body class='bg-light'>
+
+    <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} text-center">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
     <header>
         <div id="logged-in-user" class="d-flex justify-content-end pr-4"><small class='text-muted'>Hello,
                 {{user.username}}</small>
@@ -86,16 +97,6 @@
         {% block banner %}{% endblock banner %}
 
     </header>
-
-    <div class="container">
-        {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} text-center">
-            {{ message }}
-        </div>
-        {% endfor %}
-        {% endif %}
-    </div>
 
 
     {% block content %}{% endblock content %}

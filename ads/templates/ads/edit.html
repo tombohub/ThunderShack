@@ -3,11 +3,16 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="container p-5">
+    <h2 class="font-weight-bold mt-3 text-center">Login</h2>
+    <hr>
+    <p>Please edit:</p>
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-            {{form | crispy}}
+        {{form | crispy}}
 
-        <input type="submit" class=""/>
+        <input type="submit" class="" />
 
     </form>
+</div>
 {% endblock content %}
