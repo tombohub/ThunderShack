@@ -2,11 +2,10 @@
 {% load humanize %}
 
 {% block content %}
-<h1 class="display-4 text-center">Conversations</h1>
-<hr>
+<h1 class="display-4 text-center my-3">Conversations</h1>
 <main class="container">
     {% for conversation in conversations %}
-    <section class='card my2 shadow-sm'>
+    <section class='card my-2 shadow-sm'>
         <div class="row no-gutters">
             <div class='col-sm-3'>
                 <img class='card-img ad-image-list' src="{{conversation.ad.thumbnail.url}}" alt="ad image">
