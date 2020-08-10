@@ -37,7 +37,7 @@
         <nav class="navbar navbar-expand-sm border-bottom">
 
             <!-- Left side -->
-            <a class='navbar-brand' href="{% url 'ads-home' %}">
+            <a class='navbar-brand text-dark' href="{% url 'ads-home' %}">
                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
@@ -55,25 +55,28 @@
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
                     <li class='nav-item'>
-                        <a class='nav-link' href="{%url 'messages-inbox' %}"><i class="far fa-comment-alt"></i> My
+                        <a class='nav-link text-dark' href="{%url 'messages-inbox' %}"><i
+                                class="far fa-comment-alt"></i> My
                             Messages</a>
                     </li>
                     <li class='nav-item'>
-                        <a class='nav-link' href="{% url 'user-ads' %}"><i class="fas fa-th-list"></i> My Ads</a>
+                        <a class='nav-link text-dark' href="{% url 'user-ads' %}"><i class="fas fa-th-list"></i> My
+                            Ads</a>
                     </li>
                     <li class="nav-item">
-                        <a class='nav-link' href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a class='nav-link text-dark' href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>
+                            Logout</a>
                     </li>
 
                     {% else %}
                     <li class='nav-item'>
-                        <a class='nav-link' href="{% url 'login' %}">Login</a>
+                        <a class='nav-link text-dark' href="{% url 'login' %}">Login</a>
                     </li>
 
                     {% endif  %}
                     <li class="nav-item ml-1">
-                        <a class="btn btn-primary nav-link" role='button' href="{% url 'create-ad' %}"><i
-                                class="fas fa-plus"></i> Post Ad</a>
+                        <a class="btn btn-accent nav-link text-dark font-weight-bold" role='button'
+                            href="{% url 'create-ad' %}"><i class="fas fa-plus"></i> Post Ad</a>
                     </li>
                 </ul>
             </div>
