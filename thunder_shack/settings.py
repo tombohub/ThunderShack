@@ -26,7 +26,7 @@ SECRET_KEY = '2hc7*o*z)+m)pp+nwnw*iq5lm-yyxv#v^j!7ue04x*jdup=!93'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -84,8 +84,15 @@ WSGI_APPLICATION = 'thunder_shack.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'thunder_shack',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '',
+
     }
 }
 
@@ -136,6 +143,7 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
+# to use bootstrap 'danger' class
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
