@@ -10,8 +10,8 @@ $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #212529;
 
-$white: rgb(245, 235, 235);
-$black: rgb(10, 10, 10)
+$white: rgb(255, 255, 255);
+$black: #0c0e0f;
 
 $blue: #007bff;
 $indigo: #6610f2;
@@ -44,6 +44,8 @@ $theme-colors: (
   "gray-900": $gray-900,
   "accent": $accent,
   "orange": $orange,
+  "black": $black,
+  "white": $white,
 );
 
 @import "bootstrap/bootstrap.scss";
