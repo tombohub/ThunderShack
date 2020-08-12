@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import django_on_heroku
 #import django_heroku
-from .env import *
+#from .env import *
 import os
 from django.contrib.messages import constants as messages
 
