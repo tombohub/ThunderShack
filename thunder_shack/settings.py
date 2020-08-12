@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+import django_heroku
 import os
 from django.contrib.messages import constants as messages
 
@@ -158,3 +159,6 @@ EMAIL_HOST_PASSWORD = '711425oO!!'
 EMAIL_PORT = 587
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# for Heroku
+django_heroku.settings(locals())
