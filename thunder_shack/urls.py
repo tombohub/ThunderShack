@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from users import views as users_views
 from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -25,3 +26,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('messages/', include('private_messages.urls')),
 ]
+
+
+urlpatterns += static(settings.STATIC_URL,
+                      document_root=settings.STATIC_ROOT)
