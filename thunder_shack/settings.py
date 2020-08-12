@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import django_on_heroku
+#import django_on_heroku
 import os
 from django.contrib.messages import constants as messages
 
@@ -171,4 +171,4 @@ AWS_DEFAULT_ACL = None
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # for Heroku
-django_on_heroku.settings(locals())
+# django_on_heroku.settings(locals())
