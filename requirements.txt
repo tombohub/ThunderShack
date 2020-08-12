@@ -25,4 +25,4 @@ toml==0.10.0
 whitenoise==5.2.0
 wrapt==1.11.2
 gunicorn
-
+django-heroku
