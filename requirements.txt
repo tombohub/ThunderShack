@@ -35,3 +35,4 @@ toml==0.10.0
 urllib3==1.25.10
 whitenoise==5.2.0
 wrapt==1.11.2
+django-on-heroku
