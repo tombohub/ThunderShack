@@ -9,11 +9,12 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+from django.contrib.messages import constants as messages
+import os
+print('evo me ovde')
 #import django_on_heroku
 #import django_heroku
 #from .env import *
-import os
-from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,6 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '2hc7*o*z)+m)pp+nwnw*iq5lm-yyxv#v^j!7ue04x*jdup=!93'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -46,7 +49,7 @@ INSTALLED_APPS = [
     'django_rename_app',
     'django_sass',
     'widget_tweaks',
-    # 'storages',
+    'storages',
 ]
 
 MIDDLEWARE = [
