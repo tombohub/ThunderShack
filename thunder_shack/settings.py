@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django_rename_app',
     'django_sass',
     'widget_tweaks',
-    'storages',
+    # 'storages',
 ]
 
 MIDDLEWARE = [
