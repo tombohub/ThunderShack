@@ -42,15 +42,15 @@ class Ad(models.Model):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
-        # img = Image.open(self.image.path)
-        # output_size = (500, 500)
-        # img.thumbnail(output_size, Image.ANTIALIAS)
-        # thumb_io = BytesIO()
-        # img.save(thumb_io, 'JPEG', quality=100, subsampling=0)
+        img = Image.open(self.image.path)
+        output_size = (500, 500)
+        img.thumbnail(output_size, Image.ANTIALIAS)
+        thumb_io = BytesIO()
+        img.save(thumb_io, 'JPEG', quality=100, subsampling=0)
 
-        # # chose same name as original image
-        # name = os.path.basename(self.image.name)
-        # # save=False in order not to call super().save() again and again..
-        # self.thumbnail.save(name, File(thumb_io), save=False)
+        # chose same name as original image
+        name = os.path.basename(self.image.name)
+        # save=False in order not to call super().save() again and again..
+        self.thumbnail.save(name, File(thumb_io), save=False)
 
-        # super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
