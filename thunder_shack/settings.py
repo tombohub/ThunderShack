@@ -29,7 +29,7 @@ SECRET_KEY = '2hc7*o*z)+m)pp+nwnw*iq5lm-yyxv#v^j!7ue04x*jdup=!93'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['thundershack.herokuapp.com']
 
 
 # Application definition
