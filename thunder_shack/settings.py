@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import django_on_heroku
+import dj_database_url
 import os
 from django.contrib.messages import constants as messages
 
@@ -24,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2hc7*o*z)+m)pp+nwnw*iq5lm-yyxv#v^j!7ue04x*jdup=!93'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -83,20 +84,21 @@ WSGI_APPLICATION = 'thunder_shack.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'thunder_shack',
-        'USER': 'tomo',
-        'PASSWORD': 'tomo982',
-        'HOST': 'localhost',
-        'PORT': '',
+# DATABASES = {
+#     'default': {
+#         # 'ENGINE': 'django.db.backends.sqlite3',
+#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'thunder_shack',
+#         'USER': 'tomo',
+#         'PASSWORD': 'tomo982',
+#         'HOST': 'localhost',
+#         'PORT': '',
 
-    }
-}
-
+#     }
+# }
+DATABASES['default'] = dj_database_url.config(
+    conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
