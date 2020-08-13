@@ -1,5 +1,1 @@
-import environ
-
-env = environ.Env()
-
-print(env)
+from django.core.files.storage import default_storage
