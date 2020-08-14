@@ -162,6 +162,7 @@ EMAIL_HOST = 'smtp.zoho.com'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'meow@catolicquotes.com'
 
 
 # # >> AWS S3 storage
