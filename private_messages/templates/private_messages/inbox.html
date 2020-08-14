@@ -42,7 +42,7 @@
                 </div> <!-- card body -->
             </div> <!-- col-sm-8 -->
         </div> <!-- row -->
-        <a class='stretched-link' href="{% url 'messages-conversation' conversation.id %}"></a>
+        <a class='stretched-link' href="{{ conversation.get_absolute_url }}"></a>
     </section> <!-- card -->
     {% endfor %}
 
