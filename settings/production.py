@@ -90,8 +90,8 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'thunder_shack',
-        'USER': 'tomo',
-        'PASSWORD': 'tomo982',
+        'USER': config('DATABASES_USER'),
+        'PASSWORD': config('DATABASES_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '',
 
@@ -163,7 +163,7 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # # >> AWS S3 storage
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
