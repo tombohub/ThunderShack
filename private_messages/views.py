@@ -97,7 +97,8 @@ def conversation_start(request):
         return redirect(f'{settings.LOGIN_URL}?next={request.path}')
 
 
-# form to send private message withou ajax
+# form to send private message withou ajax (not in use currently
+# )
 def send(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -132,16 +133,19 @@ def send_ajax(request):
                 f.save()
 
                 # >> send notification email
-
-                subject = f"Reply to {ad.title}"
-                message = render_to_string('private_messages/new_conversation_email.html', {
-                    'author': ad.author,
+                if conversation.starter == request.user:
+                    receiver = conversation.participant
+                else:
+                    receiver = conversation.starter
+                subject = f"Reply to {conversation.ad.title}"
+                message = render_to_string('private_messages/new_message_email.html', {
+                    'receiver': receiver,
                     'sender': request.user,
-                    'ad': ad,
+                    'ad': conversation.ad,
                     'conversation': conversation,
                     'domain': get_current_site(request).domain,
                 })
-                recepient_email = ad.author.email
+                recepient_email = receiver.email
                 send_mail(subject, message, from_email=None,
                           recipient_list=[recepient_email], html_message=message)
 

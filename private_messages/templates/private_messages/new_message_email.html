@@ -1,12 +1,12 @@
 {% autoescape off %}
 
-Hi {{ author.username }},
+Hi {{ receiver.username }},
 <p>
-    {{ sender.username }} has replied regarding ad {{ ad.title }}<br>
+    {{ sender.username }} has replied to "{{ ad.title }}" conversation<br>
 </p>
 
 <p>
-    <a href="https://{{domain}}{{ conversation.get_absolute_url }}">Reply</a>
+    <a href="https://{{domain}}{{ conversation.get_absolute_url }}">Read Message</a>
 </p>
 
 
