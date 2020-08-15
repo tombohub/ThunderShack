@@ -1,3 +1,6 @@
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from .forms import PrivateMessageForm, ConversationMessageForm
@@ -7,9 +10,9 @@ from .models import PrivateMessage, Conversation
 from ads.models import Ad
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.contrib.sites.shortcuts import get_current_site
+<< << << < HEAD
+== == == =
+>>>>>> > dc54500bfd7d097a06bc1acf1c5424f88895ec5c
 
 
 # Create your views here.
