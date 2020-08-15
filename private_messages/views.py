@@ -7,6 +7,9 @@ from .models import PrivateMessage, Conversation
 from ads.models import Ad
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
 
 
 # Create your views here.
@@ -71,6 +74,20 @@ def conversation_start(request):
                 f.sender = request.user
                 f.conversation = conversation
                 f.save()
+
+                # >> send notification email
+                subject = "New Conversation"
+                message = render_to_string('private_messages/new_conversation_email.html', {
+                    'author': ad.author,
+                    'user': request.user,
+                    'ad': ad,
+                    'conversation': conversation,
+                    'domain': get_current_site(request).domain,
+                })
+                recepient_email = ad.author.email
+                send_mail(subject, message, from_email=None,
+                          recipient_list=[recepient_email], html_message=message)
+
                 messages.success(request, f'Message sent!')
                 return redirect(request.META['HTTP_REFERER'])
         else:

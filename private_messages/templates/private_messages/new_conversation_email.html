@@ -1,0 +1,16 @@
+{% autoescape off %}
+
+Hi {{ author.username }},
+<p>
+    {{ user.username }} has started new conversation for your ad {{ ad.title }}<br>
+</p>
+
+<p>
+    <a href="https://{{domain}}{{ conversation.get_absolute_url }}">Reply</a>
+</p>
+
+
+
+Thunder Shack
+
+{% endautoescape %}
