@@ -10,9 +10,6 @@ from .models import PrivateMessage, Conversation
 from ads.models import Ad
 from django.contrib.auth.models import User
 from django.db.models import Q
-<< << << < HEAD
-== == == =
->>>>>> > dc54500bfd7d097a06bc1acf1c5424f88895ec5c
 
 
 # Create your views here.
@@ -79,7 +76,7 @@ def conversation_start(request):
                 f.save()
 
                 # >> send notification email
-                subject = "New Conversation"
+                subject = f"New Conversation for {ad.title}"
                 message = render_to_string('private_messages/new_conversation_email.html', {
                     'author': ad.author,
                     'user': request.user,
@@ -100,7 +97,7 @@ def conversation_start(request):
         return redirect(f'{settings.LOGIN_URL}?next={request.path}')
 
 
-# form to send private message
+# form to send private message withou ajax
 def send(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -133,6 +130,21 @@ def send_ajax(request):
                 f.sender = request.user
                 f.conversation = conversation
                 f.save()
+
+                # >> send notification email
+
+                subject = f"Reply to {ad.title}"
+                message = render_to_string('private_messages/new_conversation_email.html', {
+                    'author': ad.author,
+                    'sender': request.user,
+                    'ad': ad,
+                    'conversation': conversation,
+                    'domain': get_current_site(request).domain,
+                })
+                recepient_email = ad.author.email
+                send_mail(subject, message, from_email=None,
+                          recipient_list=[recepient_email], html_message=message)
+
                 return HttpResponse('success')
         else:
             return HttpResponse('not right')
