@@ -102,10 +102,18 @@
 
     {% block content %}{% endblock content %}
 
-    <footer class='bg-gray-300'>
-        <a href="posting-policy/">Posting policy</a>
-
+    <footer class='bg-dark mt-5'>
+        <div class='d-flex justify-content-around p-4'>
+            <a class="text-accent" href="{% url 'posting-policy' %}">Posting policy</a>
+            <a class='text-accent' href="{% url 'terms-of-use' %}">Terms of use</a>
+            <a class="text-accent" href="{% url 'contact-us' %}">Contact us</a>
+        </div>
+        <div class='text-center text-gray-500'>
+            Copyright Thunder Shack 2020
+        </div>
     </footer>
+
+
     <script src="{% static 'js/main.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

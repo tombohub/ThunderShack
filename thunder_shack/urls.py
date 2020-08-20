@@ -27,6 +27,8 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('messages/', include('private_messages.urls')),
     path('posting-policy/', views.posting_policy, name='posting-policy'),
+    path('terms-of-use/', views.terms_of_use, name='terms-of-use'),
+    path('contact-us/', views.contact_us, name='contact-us'),
 ]
 
 
