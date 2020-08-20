@@ -13,5 +13,10 @@
         <input type="submit" class="btn btn-primary" />
 
     </form>
+    <div>
+        <small>By clicking "Submit" you agree to our <a href="{% url 'terms-of-use' %}">Terms of use</a>
+            and our <a href="{% url 'privacy-policy' %}">Privacy policy</a>
+        </small>
+    </div>
 </div>
 {% endblock content %}

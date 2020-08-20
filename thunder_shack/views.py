@@ -13,6 +13,14 @@ def terms_of_use(request):
     return render(request, 'terms_of_use.html')
 
 
+def cookie_policy(request):
+    return render(request, 'cookie_policy.html')
+
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
+
+
 def contact_us(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)

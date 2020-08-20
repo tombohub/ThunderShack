@@ -29,6 +29,8 @@ urlpatterns = [
     path('posting-policy/', views.posting_policy, name='posting-policy'),
     path('terms-of-use/', views.terms_of_use, name='terms-of-use'),
     path('contact-us/', views.contact_us, name='contact-us'),
+    path('cookie-policy/', views.cookie_policy, name='cookie-policy'),
+    path('privacy-policy/', views.cookie_policy, name='privacy-policy'),
 ]
 
 
