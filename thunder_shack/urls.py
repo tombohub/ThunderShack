@@ -18,6 +18,7 @@ from django.urls import path, include
 from users import views as users_views
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
 
 
 urlpatterns = [
@@ -25,6 +26,7 @@ urlpatterns = [
     path('', include('ads.urls')),
     path('users/', include('users.urls')),
     path('messages/', include('private_messages.urls')),
+    path('posting-policy/', views.posting_policy, name='posting-policy'),
 ]
 
 
