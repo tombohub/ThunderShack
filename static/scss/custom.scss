@@ -49,4 +49,6 @@ $theme-colors: (
   "white": $white,
 );
 
+$enable-responsive-font-sizes: true;
+
 @import "bootstrap/bootstrap.scss";
