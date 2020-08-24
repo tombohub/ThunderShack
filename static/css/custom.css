@@ -53,4 +53,5 @@ section.card:hover {
   background-image: url("../img/jumbotron.jpg");
   background-position: bottom right;
   background-repeat: no-repeat;
+  min-height: 390px;
 }
