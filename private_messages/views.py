@@ -94,7 +94,7 @@ def conversation_start(request):
             return redirect('ads-home')
     else:
         messages.info(request, f'Please login first')
-        return redirect(f'{settings.LOGIN_URL}?next={request.get_full_path}')
+        return redirect(f'{settings.LOGIN_URL}?next={request.get_full_path()}')
 
 
 # form to send private message withou ajax (not in use currently
