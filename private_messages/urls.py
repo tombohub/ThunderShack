@@ -12,7 +12,7 @@ urlpatterns = [
          name='messages-conversation-json'),
     path('conversation_html/<int:pk>/', views.conversation_html,
          name='messages-conversation-html'),
-    path('converation/start/', views.conversation_start,
+    path('conversation/start/', views.conversation_start,
          name='messages-conversation-start'),
     #path('sent/', views.sent, name='messages-sent'),
 ]
