@@ -1,2 +1,4 @@
-Setup sqlite for development server
+Optimize images on S3
 
+Setup sqlite for development server
+email reply sender name change from 'hello' to Thunder Shack or something

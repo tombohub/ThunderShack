@@ -40,17 +40,34 @@ class Ad(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+        
+        # first save so we can have images saved in database. its simpler
         super().save(*args, **kwargs)
 
+        ## Handle the uploaded images.
         img = Image.open(self.image)
-        output_size = (500, 500)
-        img.thumbnail(output_size, Image.ANTIALIAS)
-        thumb_io = BytesIO()
-        img.save(thumb_io, 'JPEG', quality=100, subsampling=0)
-
-        # chose same name as original image
+        output_io = BytesIO()
         name = os.path.basename(self.image.name)
-        # save=False in order not to call super().save() again and again..
-        self.thumbnail.save(name, File(thumb_io), save=False)
 
+        # Make a thumbnail
+        thumbnail_size = (500, 500)
+        img_copy = img.copy()
+        img_copy.thumbnail(thumbnail_size, Image.ANTIALIAS)
+        img_copy.save(output_io, 'JPEG', quality=90, subsampling=0)
+        
+        # save=False in order not to call super().save() again and again..
+        self.thumbnail.save(name, File(output_io), save=False)
+
+
+        # Resize the original image
+        output_width = 1000
+        width_percent = (output_width/float(img.size[0]))
+        output_height = int((float(img.size[1])*float(width_percent)))
+        img = img.resize((output_width,output_height), Image.ANTIALIAS)
+        img.save(output_io, 'JPEG', quality=90, subsampling=0)
+        
+        # save=False in order not to call super().save() again and again..
+        self.image.save(name, File(output_io), save=False)
+        
+        
         super().save(*args, **kwargs)
