@@ -30,8 +30,8 @@ def contact_us(request):
             name = form.cleaned_data.get('name')
             sender_email = form.cleaned_data.get('email')
             recepient_email = config('CONTACT_US_EMAIL')
-            email_message = f"{form.cleaned_data.get('message')}\n\n{name}"
-            send_mail(subject, email_message, sender_email,
+            email_message = f"{form.cleaned_data.get('message')}\n\n{name}\n\nsender email: {sender_email}"
+            send_mail(subject, email_message, recepient_email,
                       [recepient_email])
 
             messages.success(
