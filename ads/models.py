@@ -44,6 +44,12 @@ class Ad(models.Model):
         # first save so we can have images saved in database. its simpler
         super().save(*args, **kwargs)
 
+        self.create_thumbnail()
+        self.resize_img()
+        
+        super().save(*args, **kwargs)
+
+    def create_thumbnail(self):
         ## Handle the uploaded images.
         img = Image.open(self.image)
         output_io = BytesIO()
@@ -58,16 +64,18 @@ class Ad(models.Model):
         # save=False in order not to call super().save() again and again..
         self.thumbnail.save(name, File(output_io), save=False)
 
+    def resize_img(self):
+        ## Handle the uploaded images.
+        img = Image.open(self.image)
+        output_io = BytesIO()
+        name = os.path.basename(self.image.name)
 
-        # # Resize the original image
-        # output_width = 1000
-        # width_percent = (output_width/float(img.size[0]))
-        # output_height = int((float(img.size[1])*float(width_percent)))
-        # img = img.resize((output_width,output_height), Image.ANTIALIAS)
-        # img.save(output_io, 'JPEG', quality=90, subsampling=0)
+        # Resize the original image
+        output_width = 1000
+        width_percent = (output_width/float(img.size[0]))
+        output_height = int((float(img.size[1])*float(width_percent)))
+        img = img.resize((output_width,output_height), Image.ANTIALIAS)
+        img.save(output_io, 'JPEG', quality=90, subsampling=0)
         
-        # # save=False in order not to call super().save() again and again..
-        # self.image.save(name, File(output_io), save=False)
-        
-        
-        super().save(*args, **kwargs)
+        # save=False in order not to call super().save() again and again..
+        self.image.save(name, File(output_io), save=False)

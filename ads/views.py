@@ -79,6 +79,18 @@ def edit(request, pk):
 
 
 def ad_details(request, pk, slug):
+    '''
+    Ad details page where we can see ad title, image, description
+    as well as start the conversation.
+
+    Arguments:
+        request {object} -- django request object
+        pk {int} -- primary key of the ad from database
+        slug {str} -- ad slug
+
+    Returns:
+        renders the ad detail template
+    '''
     ad = Ad.objects.get(slug=slug, pk=pk)
     if request.user.is_authenticated:
         conversation = Conversation.get_if_exists(ad=ad, starter=request.user)
